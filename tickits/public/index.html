@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>领票登记</title>
+<link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="dot"></span>
+      <h1 id="appTitle">领票登记</h1>
+    </div>
+    <nav class="tabs">
+      <a href="/" data-tab="grab">抢票端</a>
+      <a href="/admin" data-tab="admin">发票端</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ============ 抢票端 ============ -->
+    <section id="view-grab" class="view">
+      <div class="card">
+        <h2>填写信息</h2>
+        <p class="hint">一个学号只能领一张票</p>
+        <label>姓名
+          <input id="gName" type="text" placeholder="请输入姓名" maxlength="24" autocomplete="off" />
+        </label>
+        <label>学号
+          <input id="gSid" type="text" placeholder="请输入学号" maxlength="20" autocomplete="off" />
+        </label>
+      </div>
+
+      <div class="card">
+        <div class="row-between">
+          <h2>选择票型</h2>
+          <button id="gRefresh" class="ghost small" type="button">刷新余票</button>
+        </div>
+        <div id="gTypes" class="types"><p class="empty">加载中…</p></div>
+      </div>
+
+      <div class="actions">
+        <button id="gSubmit" class="primary" type="button" disabled>确定领取</button>
+      </div>
+
+      <div id="gResult" class="result hidden"></div>
+    </section>
+
+    <!-- ============ 发票端 ============ -->
+    <section id="view-admin" class="view hidden">
+      <div id="adminLogin" class="card">
+        <h2>发票端登录</h2>
+        <p class="hint">请输入秘钥（本地版：启动日志里会打印）</p>
+        <label>秘钥
+          <input id="aKey" type="password" placeholder="秘钥" autocomplete="off" />
+        </label>
+        <div class="actions left">
+          <button id="aLogin" class="primary" type="button">进入</button>
+        </div>
+        <p id="aLoginMsg" class="msg"></p>
+      </div>
+
+      <div id="adminPanel" class="hidden">
+        <div class="card">
+          <div class="row-between">
+            <h2>票型与票数</h2>
+            <div class="row">
+              <span id="aOpenState" class="pill"></span>
+              <button id="aToggleOpen" class="ghost small" type="button">关闭领票</button>
+            </div>
+          </div>
+          <div id="aTypeRows" class="type-rows"></div>
+          <div class="row">
+            <button id="aAddRow" class="ghost small" type="button">+ 添加票型</button>
+            <button id="aSaveTypes" class="primary small" type="button">保存票型</button>
+          </div>
+          <p id="aTypeMsg" class="msg"></p>
+        </div>
+
+        <div class="card">
+          <h2>页面标题</h2>
+          <div class="row">
+            <input id="aTitle" type="text" maxlength="60" placeholder="领票登记" />
+            <button id="aSaveTitle" class="ghost small" type="button">保存</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row-between">
+            <h2>领取名单 <span id="aCount" class="count"></span></h2>
+            <div class="row">
+              <button id="aRefresh" class="ghost small" type="button">刷新</button>
+              <button id="aExport" class="ghost small" type="button">导出 CSV</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table id="aTable">
+              <thead>
+                <tr><th>票号</th><th>姓名</th><th>学号</th><th>票型</th><th>时间</th><th></th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <p class="hint">「票号」是该票型内按领取先后排的顺序号，可用来现场核对人数。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

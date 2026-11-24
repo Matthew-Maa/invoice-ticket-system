@@ -1,0 +1,19 @@
+{
+  "name": "tickits",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "极简抢票系统：发票端设置票型票数，抢票端凭学号领票",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "smoke": "node tools/smoke.js"
+  },
+  "dependencies": {
+    "@fastify/static": "^10.1.4",
+    "fastify": "^5.12.5"
+  }
+}

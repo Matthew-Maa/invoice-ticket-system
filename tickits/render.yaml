@@ -1,0 +1,24 @@
+# Render 蓝图：连接仓库后 Render 会自动读出这份配置（用法见 README「部署到 Render」）
+#
+# 方案：Starter 实例 + 1GB 持久盘，SQLite 数据库文件落在 /var/data 上 —— 重新部署/重启都不丢名单。
+services:
+  - type: web
+    name: tickits
+    runtime: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/state
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      # 发票端秘钥：创建时让你填，之后也能在 Environment 里改
+      - key: ADMIN_KEY
+        sync: false
+      # 数据库和秘钥文件都写在这块盘上
+      - key: DATA_DIR
+        value: /var/data
+    disk:
+      name: tickits-data
+      mountPath: /var/data
+      sizeGB: 1
